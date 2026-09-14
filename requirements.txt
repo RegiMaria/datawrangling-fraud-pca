@@ -1,5 +1,6 @@
 jupyterlab==4.2.5
 notebook==7.2.2
+tornado==6.4.2
 pandas==2.2.2
 numpy==1.26.4
 scikit-learn==1.5.1
