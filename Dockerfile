@@ -20,12 +20,13 @@ COPY data/ ./data/
 EXPOSE 8888
 
 # Sobe o Jupyter Lab acessível de fora do container, sem exigir token
-# (adequado para uso local/portfólio; NÃO use --NotebookApp.token='' em produção)
+# (adequado para uso local/portfólio; NÃO use token/password vazios em produção)
 CMD ["jupyter", "lab", \
      "--ip=0.0.0.0", \
      "--port=8888", \
      "--no-browser", \
      "--allow-root", \
      "--notebook-dir=/app", \
-     "--NotebookApp.token=''", \
-     "--NotebookApp.password=''"]
+     "--ServerApp.token=", \
+     "--ServerApp.password=", \
+     "--ServerApp.disable_check_xsrf=True"]
