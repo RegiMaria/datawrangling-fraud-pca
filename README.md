@@ -5,22 +5,20 @@ detecção de fraude em transações de cartão de crédito. O dataset é **sint
 gerado programaticamente com a mesma estrutura de um problema real de fraude
 (variáveis anonimizadas `V1`...`V28`, `Time`, `Amount` e `Class`).
 
-**Contexto do projeto**
+## Contexto do projeto
 
-Este exericício de preparação de dados faz parte da formação MCIO + Leega
-para Engenharia de dados.
+Este exercício de preparação de dados faz parte da formação [MCIO + Leega](https://www.linkedin.com/company/mciobrasil/posts/)
+para Engenharia de Dados. A formação inclui:
 
-A formação inclui:
 1. Fundamentos de dados
 2. Preparação de dados
 3. Engenharia e Arquitetura de dados
 4. Visualização e storytelling de dados
 
 Este projeto replica, com um dataset próprio e gerado de forma independente, o mesmo
-fluxo técnico de preparação de dados aplicado a um cenário de detecção de fraude em
-transações de cartão de crédito - inspirado no que estudei no módulo de Data Wrangling &
-PCA da minha formação em Dados (Leega + MCIO+).
-
+fluxo técnico estudado no módulo de Data Wrangling & PCA: correlação entre variáveis,
+padronização, redução de dimensionalidade e balanceamento de classes, aplicado a um
+cenário de detecção de fraude em transações de cartão de crédito.
 
 ## O que este projeto faz
 
@@ -42,7 +40,7 @@ docker compose up --build
 Depois, acesse no navegador:
 
 ```
-http://localhost:8888/lab/tree/DataPrep.ipynb
+http://localhost:8888/lab/tree/notebooks/DataPrep.ipynb
 ```
 
 Para parar:
@@ -72,14 +70,15 @@ http://localhost:8888/lab
 ```
 .
 ├── data/
-|     ├── transacoes_cartao.csv
+│   └── transacoes_cartao.csv
 ├── notebooks/
-|      ├── DataPrep.ipynb
+│   └── DataPrep.ipynb
 ├── Dockerfile
 ├── docker-compose.yml
 ├── .dockerignore
+├── .gitignore
 ├── requirements.txt
-├── README.md
+└── README.md
 ```
 
 ## Stack utilizada
@@ -88,8 +87,25 @@ http://localhost:8888/lab
 - pandas, numpy
 - scikit-learn (StandardScaler, PCA, train_test_split, normalize)
 - matplotlib, seaborn
-- Jupyter Lab
+- Jupyter Lab (`tornado` fixado em `6.4.2` - veja "Desafios técnicos" abaixo)
 - Docker / Docker Compose
+
+## Desafios técnicos
+
+Durante a containerização, o Jupyter Lab subia normalmente, mas toda a interface
+ficava em branco: até arquivos simples como o favicon retornavam erro 500. O
+*traceback8 revelou uma incompatibilidade entre o `jupyter_server` e uma versão
+recente do `tornado` :
+
+Mudança em como o `FileFindHandler` lida com links
+simbólicos - `AttributeError: 'FileFindHandler' object has no attribute
+'allowed_symlink_directory'`.
+
+Como o `requirements.txt` não fixava a versão do `tornado`, o `pip` sempre
+instalava a mais recente disponível - incluindo a versão com o bug. A correção
+foi fixar `tornado==6.4.2`, uma versão anterior à mudança que quebrou a
+compatibilidade, garantindo que o build seja sempre reprodutível até que o
+`jupyter_server` seja atualizado para suportar a nova versão do `tornado`.
 
 ## Próximos passos
 
