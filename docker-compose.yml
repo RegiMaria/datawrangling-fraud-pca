@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  fraude-datawrangling:
+    build: .
+    container_name: fraude-datawrangling
+    ports:
+      - "8888:8888"
+    volumes:
+      # Monta a pasta local dentro do container, para que qualquer alteração
+      # feita no notebook seja salva também na sua máquina.
+      - ./:/app
+    restart: unless-stopped
