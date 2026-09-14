@@ -12,19 +12,20 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia o notebook e o dataset para dentro da imagem
-COPY DataPre.ipynb .
-COPY transacoes_cartao.csv .
+# Copia o notebook e o dataset, preservando a mesma estrutura de pastas do projeto
+COPY notebooks/ ./notebooks/
+COPY data/ ./data/
 
 # Porta padrão do Jupyter
 EXPOSE 8888
 
 # Sobe o Jupyter Lab acessível de fora do container, sem exigir token
-# (adequado para uso local/portfólio; NÃO usamos --NotebookApp.token='' em produção)
+# (adequado para uso local/portfólio; NÃO use --NotebookApp.token='' em produção)
 CMD ["jupyter", "lab", \
      "--ip=0.0.0.0", \
      "--port=8888", \
      "--no-browser", \
      "--allow-root", \
+     "--notebook-dir=/app", \
      "--NotebookApp.token=''", \
      "--NotebookApp.password=''"]
