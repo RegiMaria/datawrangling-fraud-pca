@@ -5,6 +5,23 @@ detecção de fraude em transações de cartão de crédito. O dataset é **sint
 gerado programaticamente com a mesma estrutura de um problema real de fraude
 (variáveis anonimizadas `V1`...`V28`, `Time`, `Amount` e `Class`).
 
+**Contexto do projeto**
+
+Este exericício de preparação de dados faz parte da formação MCIO + Leega
+para Engenharia de dados.
+
+A formação inclui:
+1. Fundamentos de dados
+2. Preparação de dados
+3. Engenharia e Arquitetura de dados
+4. Visualização e storytelling de dados
+
+Este projeto replica, com um dataset próprio e gerado de forma independente, o mesmo
+fluxo técnico de preparação de dados aplicado a um cenário de detecção de fraude em
+transações de cartão de crédito - inspirado no que estudei no módulo de Data Wrangling &
+PCA da minha formação em Dados (Leega + MCIO+).
+
+
 ## O que este projeto faz
 
 1. Gera uma base sintética de transações, fortemente desbalanceada (~0,35% de fraude).
@@ -16,7 +33,7 @@ gerado programaticamente com a mesma estrutura de um problema real de fraude
 
 ## Como rodar com Docker
 
-### Opção 1 — Docker Compose (recomendado)
+### Opção 1 - Docker Compose (recomendado)
 
 ```bash
 docker compose up --build
@@ -25,7 +42,7 @@ docker compose up --build
 Depois, acesse no navegador:
 
 ```
-http://localhost:8888/lab/tree/DataPrep_Fraude_Portfolio.ipynb
+http://localhost:8888/lab/tree/DataPrep.ipynb
 ```
 
 Para parar:
@@ -34,7 +51,7 @@ Para parar:
 docker compose down
 ```
 
-### Opção 2 — Docker puro
+### Opção 2 - Docker puro
 
 ```bash
 # Build da imagem
@@ -54,13 +71,15 @@ http://localhost:8888/lab
 
 ```
 .
+├── data/
+|     ├── transacoes_cartao.csv
+├── notebooks/
+|      ├── DataPrep.ipynb
 ├── Dockerfile
 ├── docker-compose.yml
 ├── .dockerignore
 ├── requirements.txt
-├── Projeto_DataPrep_Fraude_Portfolio.ipynb
-├── transacoes_cartao_sintetico.csv
-└── README.md
+├── README.md
 ```
 
 ## Stack utilizada
